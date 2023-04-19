@@ -1,0 +1,30 @@
+Q.There are N rooms in a straight line in Geekland State University's hostel,
+you are given a binary string S of length N where S[i] = '1' represents that there is a wifi in ith room or S[i] = '0' represents no wifi.
+Each wifi has range X i.e. if there is a wifi in ith room then its range will go upto X more rooms on its left as well as right. 
+You have to find whether students in all rooms can use wifi.
+
+
+class Solution 
+{ 
+   boolean wifiRange(int N, String S, int X){
+        int freq[]=new int[N+1];
+        for(int i=0;i<N;i++)
+        {
+            if(S.charAt(i)=='1')
+            {
+                // there is wifi from i-X to i+X
+                int left=Math.max(i-X,0);
+                int right=Math.min(i+X,N-1);
+                freq[left]++;
+                freq[right+1]--;
+            }
+        }
+        for(int i=0;i<N;i++)
+        {
+            if(i>0) freq[i]+=freq[i-1];
+            if(freq[i]==0) // no access to wifi here
+                return false;
+        }
+        return true;
+   }
+} 
