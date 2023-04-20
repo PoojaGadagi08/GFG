@@ -1,0 +1,56 @@
+Chhota Bheem wants to eat the maximum number of ladoos in Dholakpur on Independence Day. 
+The houses in Dholakpur are arranged in the form of a binary tree and have ladoos the same as their house number. Chhota Bheem is standing at his home initially. 
+Find the maximum ladoos he can eat if he can go to houses within a maximum distance k from his house.
+The number of ladoos at his home should also be included in the sum.
+
+Note: Every house has distinct ladoos in it. 
+
+
+
+
+
+class Solution{
+    static int ans=0;
+    static int ladoos(Node root, int home, int k){
+        // Your code goes here
+    ans=0;
+    solve(root, home,k);
+    return ans;
+   
+    }
+    static int solve(Node root, int home, int k)
+    {
+        if(root==null) return -1;
+        if(root.data==home) //add till k levels downstream
+        {
+            add(root,k); 
+            return k-1; // will add k-1 downstream nodes from parent node of target
+        }
+        
+        int rem = solve(root.right, home, k); // found in right st - rem is catching k-1 
+        if(rem>=0)
+        {
+            ans+=root.data; // adding the target's parent in sum;
+            add(root.left, rem-1);// since found on right,ie we need to target parent left st
+            return rem-1; 
+        }
+        
+        //try writing for left st as well.
+         rem = solve(root.left, home, k); // when we found the target in lst
+         if(rem>=0)
+         {
+             ans+=root.data;
+             add(root.right, rem-1);
+             return rem-1;
+         }
+        return -1;
+        
+    }
+    static void add(Node n, int dist){
+        if( (n==null) || (dist<0) ) return;
+        ans += n.data;
+        //sum curr node and recur for left and right;
+        add(n.left, dist-1);
+        add(n.right, dist-1);
+    }
+}
