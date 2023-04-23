@@ -1,0 +1,33 @@
+Q.You are given an array arr of n elements. 
+In one operation you can pick two indices i and j, such that arr[i] >= arr[j] and 
+replace the value of arr[i] with (arr[i] - arr[j]). 
+You have to minimize the values of the array after performing any number of such operations.
+
+
+Algorithm to find gcd of two number
+gcd(a,b){
+  if (b==0)
+  return a;
+  else 
+  gcd(b,a%b);
+}
+
+
+
+
+class Solution {
+    public static int minimumNumber(int n, int[] arr) {
+        // code here
+        
+        int ans=0;
+        for(int i=0;i<n;i++){
+            ans=gcd(ans,arr[i]);
+        }
+        return ans;
+    }
+    public static int gcd(int a,int b){
+        if(b==0) return a;
+        else return gcd(b,a%b);
+    }
+}
+       
