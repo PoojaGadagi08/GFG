@@ -1,0 +1,66 @@
+Q.Given an array where each element (arr[i]) represents the height of the tower. Find for each tower, the nearest possible tower that is shorter than it. 
+You can look left or right on both sides.
+Note : 
+
+If two smaller towers are at the same distance, pick the smallest tower.
+
+If two towers have the same height then we choose the one with a smaller index.
+
+
+
+class Solution{
+	int [] nearestSmallestTower(int [] arr){
+	int n = arr.length;
+        Stack<Integer> left = new Stack<>();
+        Stack<Integer> right = new Stack<>();
+        int [] res = new int[n];
+        Arrays.fill(res, -1);
+
+        for (int i = 0; i < n; i++)
+        {
+            while (!left.empty() && arr[left.peek()] >= arr[i])
+            {
+                left.pop();
+            }
+
+            if (!left.empty())
+            {
+                res[i] = left.peek();
+            }
+
+            left.push(i);
+        }
+
+        for (int i = n - 1; i >= 0; i--)
+        {
+            while (!right.empty() && arr[right.peek()] >= arr[i])
+            {
+                right.pop();
+            }
+
+            if (!right.empty())
+            {
+                    // right.peek() is my ans here, do the comparison.
+                if (res[i] != -1)
+                {
+                    //if dist equal, take the lower height
+                    if (Math.abs(res[i] - i) == Math.abs(right.peek() - i))
+                    {
+                        if (arr[res[i]] > arr[right.peek()])
+                            res[i] = right.peek();
+                    }
+                    //take nearest towr.
+                    else if (Math.abs(res[i] - i) > Math.abs(right.peek() - i))
+                        res[i] = right.peek();
+                }
+                // if res[i]== -1 => no samller tower was found in left.
+                else
+                    res[i] = right.peek();
+            }
+
+            right.push(i);
+        }
+
+        return res;
+    }
+}
