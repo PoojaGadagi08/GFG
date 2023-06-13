@@ -33,3 +33,24 @@ class Solution {
 	    return ans;
     }
 }
+
+
+
+
+
+
+
+
+
+class Solution {
+    int[] kLargest(int[] arr, int n, int k) {
+        // code here
+        int ans[]=new int[k];
+        Arrays.sort(arr);
+        
+        for(int i=0;i<k;i++){
+            ans[i]=arr[n-i-1];
+        }
+        return ans;
+    }
+}
