@@ -36,3 +36,22 @@ class Solution {
         return c;
     }
 }
+
+
+
+
+
+
+
+// User function Template for Java
+class Solution {
+    static int setBits(int N) {
+        int bits=0;
+        while(N>0)
+        {
+            N=N&(N-1);
+            bits++;
+        }
+        return bits;
+    }
+}
