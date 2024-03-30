@@ -1,0 +1,44 @@
+
+
+//User function Template for Java
+
+/*class Node
+{
+    int key;
+    Node left, right;
+    
+    Node(int x)
+    {
+        key = x;
+        left = right = null;
+    }
+    
+}*/
+class Tree{
+    public static void Inorder(Node root, ArrayList<Integer> l ){
+        if(root == null){
+            return;
+        }
+        Inorder(root.left,l);
+        l.add(root.key);
+        Inorder(root.right,l);
+    }
+    public static int findMaxForN(Node root, int val){
+       ArrayList<Integer> l = new ArrayList<>();
+       Inorder(root,l);
+       if(l.size() == 0){
+           return -1;
+       }
+       int ans = -1;
+       for(int i = 0; i <= l.size()-2;i++){
+           if(l.get(i) <= val && l.get(i+1) > val){
+               ans = l.get(i);
+               break;
+           }
+       }
+       if(ans == -1){
+           return l.get(l.size()-1);
+       }
+       return ans;
+    }
+}
